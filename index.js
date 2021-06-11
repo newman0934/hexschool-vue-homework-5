@@ -10,12 +10,6 @@ defineRule('min', min);
 defineRule('max', max);
 defineRule('number', numeric);
 
-
-extend("numeric", {
-  ...numeric,
-  message:"不能輸入數字以外的內容"
-})
-
 loadLocaleFromURL('https://unpkg.com/@vee-validate/i18n@4.1.0/dist/locale/zh_TW.json');
 configure({
   generateMessage: localize('zh_TW'),
@@ -50,7 +44,7 @@ let vm = Vue.createApp({
         }
         this.products = data.products
       }catch(error){
-        console.log(error.message)
+        window.alert(error.message)
       }
     },
     async getProduct(id){
@@ -64,7 +58,7 @@ let vm = Vue.createApp({
         this.product = data.product
         this.$refs.productModal.openModal()
       }catch(error){
-        console.log(error.message)
+        window.alert(error.message)
       }
     },
     async getCarts(){
@@ -75,7 +69,7 @@ let vm = Vue.createApp({
         }
         this.cart = data.data
       }catch(error){
-        console.log(error.message)
+        window.alert(error.message)
       }
     },
     async addCart(id, qty = 1){
@@ -93,7 +87,7 @@ let vm = Vue.createApp({
         this.loadingStatus.loadingItem = ""
         this.getCarts()
       }catch(error){
-        console.log(error.message)
+        window.alert(error.message)
       }
     },
     async deleteCarts(){
@@ -104,7 +98,7 @@ let vm = Vue.createApp({
         }
         this.getCarts()
       }catch(error){
-        console.log(error.message)
+        window.alert(error.message)
       }
     },
     async deleteCartItem(id){
@@ -118,7 +112,7 @@ let vm = Vue.createApp({
         this.getCarts()
 
       }catch(error){
-        console.log(error.message)
+        window.alert(error.message)
       }
     },
     async updateCartQty(item){
@@ -135,21 +129,20 @@ let vm = Vue.createApp({
         this.loadingStatus.loadingItem = ""
         this.getCarts()
       }catch(error){
-        console.log(error.message)
+        window.alert(error.message)
       }
     },
     async addOder(){
       try {
         let order = this.order
         let { data } = await axios.post(`${apiUrl}/api/${apiPath}/order`, {data:order})
-        console.log(data)
         if(!data.success){
           throw new Error("送出訂單失敗")
         }
         // this.$refs.form.resetForm();
         this.getCarts()
       }catch(error){
-        console.log(error.message)
+        window.alert(error.message)
       }
     }
   },
